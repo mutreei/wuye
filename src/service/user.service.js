@@ -51,6 +51,7 @@ const findUserByIdOrName = (condition, callback) => {
                 ...error
             })
         }
+        console.log('data', data);
         callback({
             status: 200,
             msg: '查询成功',
@@ -136,10 +137,32 @@ const findAllUser = callback => {
     })
 }
 
+/**
+ * 销毁用户
+ */
+const destroyUser = (userID, callback) => {
+    const sql = `DELETE FROM \`user\` WHERE \`userID\` = ${userID}`;
+    connect.query(sql, (error, data) => {
+        if (error) {
+            return callback({
+                status: 400,
+                msg: '删除失败',
+                error
+            })
+        }
+        return callback({
+            status: 200,
+            msg: '成功销毁该账户',
+            data
+        })
+    })
+}
+
 module.exports = {
     register,
     login,
     findUserByIdOrName,
     recharge,
-    findAllUser
+    findAllUser,
+    destroyUser
 }
