@@ -51,6 +51,7 @@ const findUserByIdOrName = (condition, callback) => {
                 ...error
             })
         }
+        console.log('data', data);
         callback({
             status: 200,
             msg: '查询成功',
@@ -75,11 +76,17 @@ const login = ({ userName, password }, callback) => {
                 ...error
             });
         }
-        console.log('data', data[0]);
+        else if (!data[0]) {
+            console.log('data', data[0]);
+            console.log('data', data);
+            return callback({
+                status: 400,
+                msg:'登录失败，账号或密码错误'
+            })
+        }
         // token加密内容
         const {userID, name, rights} = data[0];
         const tokenStr = jwt.sign({userID, name, rights}, process.env.ENCRYPT_KEY, {expiresIn:60*60*48})
-        console.log('data', data);
         connect.query(updateSql);
         return callback({
             status: 200,
@@ -136,10 +143,32 @@ const findAllUser = callback => {
     })
 }
 
+/**
+ * 销毁用户
+ */
+const destroyUser = (userID, callback) => {
+    const sql = `DELETE FROM \`user\` WHERE \`userID\` = ${userID}`;
+    connect.query(sql, (error, data) => {
+        if (error) {
+            return callback({
+                status: 400,
+                msg: '删除失败',
+                error
+            })
+        }
+        return callback({
+            status: 200,
+            msg: '成功销毁该账户',
+            data
+        })
+    })
+}
+
 module.exports = {
     register,
     login,
     findUserByIdOrName,
     recharge,
-    findAllUser
+    findAllUser,
+    destroyUser
 }

@@ -1,6 +1,6 @@
 const userRouter = require('./app.controller');
 
-const { register, login, findUserByIdOrName, recharge, findAllUser } = require('../service/user.service')
+const { register, login, findUserByIdOrName, recharge, findAllUser, destroyUser } = require('../service/user.service')
 
 const passport = require('passport');
 
@@ -63,6 +63,15 @@ userRouter.post('/findAllUser', passport.authenticate('jwt', { session: false })
         })
     }
     return findAllUser(result => res.json(result));
+})
+
+/**
+ * 销毁账户
+ * token:true
+ */
+userRouter.post('/destroyUser', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const userID = req.user.userID;
+    destroyUser(userID, result => res.json(result));
 })
 
 module.exports = userRouter;

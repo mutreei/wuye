@@ -10,8 +10,10 @@ app.use(bodyParser.json());
 // 路由
 const router = require('./controller/app.controller');
 const userRouter = require('./controller/user.controller');
+const parkingRouter = require('./controller/parking.controller');
 app.use(router);
 app.use(userRouter);
+app.use(parkingRouter);
 
 // token验证解密
 const passport = require('passport');
