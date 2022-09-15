@@ -89,8 +89,57 @@ const login = ({ userName, password }, callback) => {
         })
     })
 }
+
+/**
+ * 账户充值/消费
+ * @param {} userID 
+ * @param {*} size 
+ * @param {*} callback 
+ */
+const recharge = (userID, size, callback) => {
+    const sql = `UPDATE \`user\` SET \`balance\`=\`balance\`+${size} WHERE \`userID\`='${userID}'`;
+    connect.query(sql, (error, data) => {
+        if (error) {
+            return callback({
+                status: 400,
+                msg: '充值/消费失败',
+                error
+            })
+        }
+        return callback({
+            status: 200,
+            msg: '充值/消费成功',
+            data
+        })
+    })
+}
+
+/**
+ * 查询所有用户
+ * @param {} callback 
+ */
+const findAllUser = callback => {
+    const sql = `SELECT *FROM \`user\``;
+    connect.query(sql, (error, data) => {
+        if (error) {
+            return callback({
+                status: 400,
+                msg: '查找所有用户失败',
+                error
+            })
+        }
+        return callback({
+            status: 200,
+            msg: '成功查询',
+            data
+        })
+    })
+}
+
 module.exports = {
     register,
     login,
-    findUserByIdOrName
+    findUserByIdOrName,
+    recharge,
+    findAllUser
 }
