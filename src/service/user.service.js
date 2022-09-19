@@ -76,11 +76,17 @@ const login = ({ userName, password }, callback) => {
                 ...error
             });
         }
-        console.log('data', data[0]);
+        else if (!data[0]) {
+            console.log('data', data[0]);
+            console.log('data', data);
+            return callback({
+                status: 400,
+                msg:'登录失败，账号或密码错误'
+            })
+        }
         // token加密内容
         const {userID, name, rights} = data[0];
         const tokenStr = jwt.sign({userID, name, rights}, process.env.ENCRYPT_KEY, {expiresIn:60*60*48})
-        console.log('data', data);
         connect.query(updateSql);
         return callback({
             status: 200,
