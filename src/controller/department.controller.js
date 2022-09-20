@@ -21,5 +21,25 @@ deRouter.post('/enterDepartment', passport.authenticate('jwt', { session: false 
     enterDepartment({ userID, name, depID }, result => res.json(result));
 })
 
+/**
+ * 离开公寓
+ * token: true
+ * body: 
+ *  1. depID
+ */
+deRouter.post('/leaveDepartment', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const { depID } = req.body;
+    leaveDepartment(depID, result => res.json(result));
+})
+
+/**
+ * 根据ID查询名下公寓
+ * token: true
+ *  userID
+ */
+deRouter.post('/queryDepartment', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const { userID } = req.user;
+    queryDepartment(userID, result => res.json(result));
+})
 
 module.exports = deRouter;
