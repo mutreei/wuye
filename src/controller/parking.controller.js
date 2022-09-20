@@ -1,10 +1,7 @@
 const parkingRouter = require('./app.controller');
 const passport = require('passport');
 
-<<<<<<< HEAD
-=======
 const { buyParking, sellParking, queryParking, queryParkingIFnull } = require('../service/parking.service');
->>>>>>> parking
 
 /**
  * 购买车位
@@ -17,14 +14,6 @@ const { buyParking, sellParking, queryParking, queryParkingIFnull } = require('.
  * 权限：owner/null
  */
 parkingRouter.post('/buyParking', passport.authenticate('jwt', { session: false }), (req, res) => {
-<<<<<<< HEAD
-    const { userID, userName } = req.user;
-    const parkingID = req.body.parkingID;
-    
-})
-
-
-=======
     const { userID, name:userName } = req.user;
     const parkingID = req.body.parkingID;
     console.log('parkingID', parkingID);
@@ -61,6 +50,5 @@ parkingRouter.post('/queryParking', passport.authenticate('jwt', { session: fals
 parkingRouter.post('/queryParkingIFnull', passport.authenticate('jwt', { session: false }), (req, res) => {
     queryParkingIFnull(result => res.json(result));
 })
->>>>>>> parking
 
 module.exports = parkingRouter;
