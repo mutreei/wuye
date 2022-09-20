@@ -12,10 +12,12 @@ const router = require('./controller/app.controller');
 const userRouter = require('./controller/user.controller');
 const parkingRouter = require('./controller/parking.controller');
 const deRouter = require('./controller/department.controller');
+const carRouter = require('./controller/app.controller');
 app.use(router);
 app.use(userRouter);
 app.use(parkingRouter);
 app.use(deRouter);
+app.use(carRouter);
 
 // token验证解密
 const passport = require('passport');

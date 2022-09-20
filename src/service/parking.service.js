@@ -13,12 +13,8 @@ const connect = require('../utils/db');
  * 购买车位
  */
 const buyParking = ({ parkingID, userID, userName }, callback) => {
-<<<<<<< HEAD
-    const priceSql = `SELECT \`price\` FROM \`parking\` WHERE \`parkingID\`=${userID}`;
-=======
     const priceSql = `SELECT \`price\` FROM \`parking\` WHERE \`parkingID\`='${parkingID}'`;
     console.log('priceSql', priceSql);
->>>>>>> parking
     connect.query(priceSql, (error, data) => {
         if (error) {
             return callback({
@@ -27,10 +23,6 @@ const buyParking = ({ parkingID, userID, userName }, callback) => {
                 error
             })
         }
-<<<<<<< HEAD
-        console.log('data', data);
-        callback(data);
-=======
         const price = data[0].price;
         const updateSql = `UPDATE \`user\` SET \`balance\`=\`balance\`-${price} WHERE \`userID\`=${userID};
         UPDATE \`parking\` SET \`parkingOwnerID\`=${userID}, \`parkingOwnerName\`='${userName}' WHERE \`parkingID\` = '${parkingID}'`;
@@ -126,17 +118,12 @@ const queryParkingIFnull = callback => {
             msg: '查询成功',
             data
         })
->>>>>>> parking
     })
 }
 
 module.exports = {
-<<<<<<< HEAD
-    buyParking
-=======
     buyParking,
     sellParking,
     queryParking,
     queryParkingIFnull
->>>>>>> parking
 }
