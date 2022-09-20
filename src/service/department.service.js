@@ -63,8 +63,30 @@ const queryDepartment = (userID, callback) => {
     })
 }
 
+/**
+ * 查询无人公寓
+ */
+const queryDepIFnull = callback => {
+    const sql = 'SELECT *FROM `department` WHERE ISNULL(`depOwnerID`)';
+    connect.query(sql, (error, data) => {
+        if (error) {
+            return callback({
+                status: 400,
+                msg: '查询失败',
+                error
+            })
+        }
+        return callback({
+            status: 200,
+            msg: '查询成功',
+            data
+        })
+    })
+}
+
 module.exports = {
     enterDepartment,
     leaveDepartment,
-    queryDepartment
+    queryDepartment,
+    queryDepIFnull
 }

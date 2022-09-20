@@ -3,7 +3,8 @@ const deRouter = require('./app.controller');
 const {
     enterDepartment,
     leaveDepartment,
-    queryDepartment
+    queryDepartment,
+    queryDepIFnull
 } = require('../service/department.service');
 const passport = require('passport');
 
@@ -40,6 +41,14 @@ deRouter.post('/leaveDepartment', passport.authenticate('jwt', { session: false 
 deRouter.post('/queryDepartment', passport.authenticate('jwt', { session: false }), (req, res) => {
     const { userID } = req.user;
     queryDepartment(userID, result => res.json(result));
+})
+
+/**
+ * 空公寓查询
+ * token: true
+ */
+deRouter.post('/queryDepIFnull', passport.authenticate('jwt', { session: false }), (req, res) => {
+    queryDepIFnull(result => res.json(result));
 })
 
 module.exports = deRouter;
