@@ -12,7 +12,7 @@ const router = require('./controller/app.controller');
 const userRouter = require('./controller/user.controller');
 const parkingRouter = require('./controller/parking.controller');
 const deRouter = require('./controller/department.controller');
-const carRouter = require('./controller/app.controller');
+const carRouter = require('./controller/car.controller');
 app.use(router);
 app.use(userRouter);
 app.use(parkingRouter);
