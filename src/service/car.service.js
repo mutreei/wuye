@@ -1,5 +1,4 @@
 const connect = require('../utils/db');
-const asyncQuery = require('../utils/asyncQuery');
 
 /**
  * 出售车辆
